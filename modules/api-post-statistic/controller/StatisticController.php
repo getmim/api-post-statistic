@@ -37,8 +37,12 @@ class StatisticController extends \Api\Controller
             $posts = Post::get(['id'=>$post_ids]);
         }
 
-        if($posts)
-            $posts = Formatter::formatMany('post', $posts, ['user']);
+        if($posts){
+            $fmt = ['user'];
+            if(module_exists('post-category'))
+                $fmt[] = 'category';
+            $posts = Formatter::formatMany('post', $posts, $fmt);
+        }
         
         foreach($posts as &$pg)
             unset($pg->meta);
@@ -70,8 +74,12 @@ class StatisticController extends \Api\Controller
             $posts = Post::get(['id'=>$post_ids]);
         }
 
-        if($posts)
-            $posts = Formatter::formatMany('post', $posts, ['user']);
+        if($posts){
+            $fmt = ['user'];
+            if(module_exists('post-category'))
+                $fmt[] = 'category';
+            $posts = Formatter::formatMany('post', $posts, $fmt);
+        }
 
         foreach($posts as &$pg)
             unset($pg->meta);
